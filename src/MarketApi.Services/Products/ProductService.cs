@@ -13,8 +13,13 @@ public class ProductService : IProductServicePortInbound
         _productRepositoryPortOut = productRepositoryPortOut;
     }
 
-    public ICollection<Product> GetAllProducts()
+    public  async Task<ICollection<Product>> GetAllProductsAsync()
     {
-        return _productRepositoryPortOut.GetAllProducts();
+        return await _productRepositoryPortOut.GetProductsAsync();
+    }
+
+    public async Task<Product> GetOneProductAsync(int id)
+    {
+        return await _productRepositoryPortOut.GetProductByIdAsync(id);
     }
 }
