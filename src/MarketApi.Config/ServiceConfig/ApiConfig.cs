@@ -25,6 +25,7 @@ public static class ApiConfig
         services.AddTransient<IProductRepositoryPortOut, ProductRepository>();
         RegisterContext(services, appSettings);
     }
+
     private static void RegisterContext(IServiceCollection services, AppSettings appSettings)
     {
         services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(appSettings.DefaultConnection.DatabaseMarketApiConnectionString));
