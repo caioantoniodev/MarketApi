@@ -8,6 +8,8 @@ namespace MarketApi.Inbound.Products.Http;
 [ApiController]
 [ApiVersion("1")]
 [Route("/v{version:apiVersion}/[controller]")]
+[Produces("application/json")]
+[Consumes("application/json")]
 public class ProductsController : ControllerBase
 {
     private readonly IProductServicePortInbound _productServicePortInbound;
@@ -20,17 +22,19 @@ public class ProductsController : ControllerBase
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all products", Description = "Retrieve a list of all products")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ICollection<Product>))]
-    public ICollection<Product> GetProducts()
+    public async Task<ActionResult<ICollection<Product>>> GetProducts()
     {
-        return _productServicePortInbound.GetAllProducts();
+        var products = await _productServicePortInbound.GetAllProductsAsync();
+        return Ok(products);
     }
     
     [HttpGet("{id}")]
     [SwaggerOperation(Summary = "Retrieve product by id", Description = "Retrieve a single product")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Product))]
     [SwaggerResponse(StatusCodes.Status404NotFound)]
-    public string GetProduct(int id)
+    public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        return "this will be a single";
+        var product = await _productServicePortInbound.GetOneProductAsync(id);
+        return Ok(product);
     }
 }
