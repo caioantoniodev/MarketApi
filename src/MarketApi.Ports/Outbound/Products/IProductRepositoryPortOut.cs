@@ -4,5 +4,6 @@ namespace MarketApi.Ports.Outbound.Products;
 
 public interface IProductRepositoryPortOut
 {
-    ICollection<Product> GetAllProducts();
+    Task<ICollection<Product>> GetProductsAsync();
+    Task<Product> GetProductByIdAsync(int id);
 }

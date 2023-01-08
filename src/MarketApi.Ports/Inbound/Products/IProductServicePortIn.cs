@@ -4,5 +4,6 @@ namespace MarketApi.Ports.Inbound.Products;
 
 public interface IProductServicePortInbound
 {
-    ICollection<Product> GetAllProducts();
+    Task<ICollection<Product>> GetAllProductsAsync();
+    Task<Product> GetOneProductAsync(int id);
 }
