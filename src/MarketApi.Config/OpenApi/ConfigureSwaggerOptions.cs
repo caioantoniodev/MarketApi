@@ -16,7 +16,7 @@ public class ConfigureSwaggerOptions : IConfigureNamedOptions<SwaggerGenOptions>
         _provider = provider;
     }
     
-    public void Configure(string name, SwaggerGenOptions options)
+    public void Configure(string? name, SwaggerGenOptions options)
     {
         Configure(options);
     }
@@ -37,6 +37,7 @@ public class ConfigureSwaggerOptions : IConfigureNamedOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo
         {
+            Version = "v1",
             Title = "MarketApi",
             Description = "Back-end of one of my projects simulating a e-commerce, made to learn DotNet.",
             Contact = new OpenApiContact

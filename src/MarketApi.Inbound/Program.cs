@@ -1,5 +1,5 @@
-using MarketApi.Config.Appsettings;
 using MarketApi.Config.OpenApi;
+using MarketApi.Config.ServiceConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureApiVersioning();
 builder.Services.SwaggerGen();
-builder.Services.Configure<AppSettings>(builder.Configuration);
+builder.Services.AddSettingsConfig(builder);
+
 var appSettings = builder.Configuration.Get<AppSettings>();
+builder.Services.AddRegisterDependency(appSettings);
 
 var app = builder.Build();
 
