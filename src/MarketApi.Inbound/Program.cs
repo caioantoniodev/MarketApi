@@ -22,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.SwaggerUi();
 }
 
+app.UseMigrations();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

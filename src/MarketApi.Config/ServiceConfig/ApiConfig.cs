@@ -29,12 +29,14 @@ public static class ApiConfig
     private static void RegisterContext(IServiceCollection services, AppSettings appSettings)
     {
         services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(appSettings.DefaultConnection.DatabaseMarketApiConnectionString));
-
-        using var servicesProvider = services.BuildServiceProvider();
-        var db = servicesProvider.GetRequiredService<DatabaseContext>();
+    }
+    
+    public static void UseMigrations(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
         db.Database.EnsureCreated();
         db.Database.Migrate();
     }
-    
     #endregion
 }
