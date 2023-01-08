@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MarketApi.Config\MarketApi.Config.csproj" />
+      <ProjectReference Include="..\MarketApi.Ports\MarketApi.Ports.csproj" />
     </ItemGroup>
 
 </Project>

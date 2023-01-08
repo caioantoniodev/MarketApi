@@ -1,4 +1,8 @@
 using MarketApi.Databases.SqlServer;
+using MarketApi.Outbound.Database.Products;
+using MarketApi.Ports.Inbound.Products;
+using MarketApi.Ports.Outbound.Products;
+using MarketApi.Services.Products;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +19,13 @@ public static class ApiConfig
         services.Configure<AppSettings>(builder.Configuration);
     }
     
-    public static void AddDatabaseContext(this IServiceCollection services, AppSettings appSettings)
+    public static void AddRegisterDependency(this IServiceCollection services, AppSettings appSettings)
+    {
+        services.AddTransient<IProductServicePortInbound, ProductService>();
+        services.AddTransient<IProductRepositoryPortOut, ProductRepository>();
+        RegisterContext(services, appSettings);
+    }
+    private static void RegisterContext(IServiceCollection services, AppSettings appSettings)
     {
         services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(appSettings.DefaultConnection.DatabaseMarketApiConnectionString));
 
@@ -24,6 +34,6 @@ public static class ApiConfig
         db.Database.EnsureCreated();
         db.Database.Migrate();
     }
-
+    
     #endregion
 }

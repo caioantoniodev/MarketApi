@@ -12,7 +12,7 @@ builder.Services.SwaggerGen();
 builder.Services.AddSettingsConfig(builder);
 
 var appSettings = builder.Configuration.Get<AppSettings>();
-builder.Services.AddDatabaseContext(appSettings);
+builder.Services.AddRegisterDependency(appSettings);
 
 var app = builder.Build();
 
