@@ -5,9 +5,7 @@ namespace MarketApi.Databases.SqlServer;
 
 public class DatabaseContext : DbContext
 {
-    public DatabaseContext(DbContextOptions options) : base(options)
-    {
-    }
+    public DatabaseContext(DbContextOptions options) : base(options) { }
     
     public DbSet<Product> Products { get; set; }
 }
